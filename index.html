@@ -4,10 +4,30 @@
 	<title>Devion's DnD Macros</title>
 	<script src="script.js"></script>
 	<link rel="stylesheet" href="stylesheet.css">
-	<link rel="icon" type="image/png" href="favicon.ico">
+	<link rel="icon" type="image/png" href="favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<p>Hi!</p>
+	<div class="Choice" id="weaponChoiceCont">
+		<p>Choose Weapon:</p>
+	</div>
+	<div id="description" hidden="hidden">
+		<p>Description:</p>
+		<p id="descriptionCont"></p>
+	</div>
+	<div class="options" id="optionCont" hidden="hidden">
+		<p>Select additional options:</p>
+		<span>Action Surge</span>
+		<span>Bonus attack</span>
+		<span>Knockback</span>
+	</div>
+	<div class="table" id="rolls" hidden="hidden">
+		<p>Rolls made:</p>
+		<p>[table with to hit, damage totals of each type]</p>
+	</div>
+	<div class="table" id="results" hidden="hidden">
+		<p>Totals based on target ac</p>
+		<p>[table with grand total per ac threshold]</p>
+	<button type="button" onclick="test()">Test</button>
 </body>
 </html>
