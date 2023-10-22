@@ -9,24 +9,23 @@
 </head>
 <body>
 	<div class="Choice" id="weaponChoiceCont">
-		<p>Choose Weapon:</p>
+		<h2>Choose Weapon:</h2>
 	</div>
 	<div id="description" hidden="hidden">
-		<p>Description:</p>
+		<h2>Description:</h2>
 		<p id="descriptionCont"></p>
 	</div>
-	<div class="options" id="optionCont" hidden="hidden">
-		<p>Select additional options:</p>
-		<span>Action Surge</span>
-		<span>Bonus attack</span>
-		<span>Knockback</span>
+	<div class="options" id="optionsCont" hidden="hidden">
+		<h2>Select options:</h2>
+		<table id="optionsTable"></table><br>
+		<button onClick="roll">Roll!</button>
 	</div>
 	<div class="table" id="rolls" hidden="hidden">
-		<p>Rolls made:</p>
+		<h2>Rolls made:</h2>
 		<p>[table with to hit, damage totals of each type]</p>
 	</div>
 	<div class="table" id="results" hidden="hidden">
-		<p>Totals based on target ac</p>
+		<h2>Totals based on target ac:</h2>
 		<p>[table with grand total per ac threshold]</p>
 	<button type="button" onclick="test()">Test</button>
 </body>
