@@ -5,19 +5,18 @@ document.addEventListener("DOMContentLoaded", function() {
 		{
 			name: "Prophet",
 			description: "Badass talking halberd",
-			uniqueOptions: [
-				{name: "Knockback", checked: false, effect: ["Damage", ["Psychic", "1d8"]]}
-			],
 			toHit: 10,
-			attack: ["Damage", ["Physical", "1d10+6"]],
-			bonusAttack: ["Damage", ["Physical", "1d4+6"]],
-			onHit: ["Damage", ["Psychic", "1d8"]]
+			attack: ["New Attack", ["Damage", "Physical", "1d10+6"], ["Damage", "Psychic", "1d8"]],
+			bonusAttack: ["New Attack", ["Damage", "Physical", "1d4+6"], ["Damage", "Psychic", "1d8"]],
+			uniqueOptions: [
+				{name: "Knockback", checked: true, effect: ["Last Attack", ["Damage", "Psychic", "1d8"], ["Effect", "Knockback - 30 feet"]]}
+			]
 		}, {
 			name: "Unarmed strike",
 			description: "Lame",
-			uniqueOptions: [],
 			toHit: 9,
-			attack: ["Damage", ["Physical", "0d6+6"]]
+			attack: ["New Attack", ["Damage", "Physical", "0d6+6"]],
+			uniqueOptions: []
 		}
 	];
 	
@@ -43,7 +42,7 @@ function chooseWeapon(choice) {
 	standardOptions = [
 		{name: "Regular Action", checked: true, effect: ["Attacks", 3]},
 		{name: "Action Surge", checked: false, effect: ["Attacks", 3]},
-		{name: "Bonus Attack", checked: false, effect: ["Bonus Attacks", 1]},
+		{name: "Bonus Attack", checked: true, effect: ["Bonus Attacks", 1]},
 		{name: "Opportunity Attack", checked: false, effect: ["Attacks", 1]}
 	];
 	options = standardOptions.concat(weapon.uniqueOptions);
@@ -90,7 +89,6 @@ function roll() {
 	// Narrates rolls
 	var attacks = 0;
 	var bonusAttacks = 0;
-	var bonusDamage = [];
 	for (let i = 0; i < selectedEffects.length; i++) {
 		selectedEffect = selectedEffects[i];
 		switch (selectedEffect[0]) {
@@ -106,8 +104,6 @@ function roll() {
 		}
 	}
 
-	hitCount = attacks + bonusAttacks;
-
 	totalDamageEffects = [];
 	for (let i = 0; i < attacks; i++) {
 		totalDamageEffects.push(weapon.attack);
@@ -115,17 +111,9 @@ function roll() {
 	for (let i = 0; i < bonusAttacks; i++) {
 		totalDamageEffects.push(weapon.bonusAttack);
 	}
-	for (let i = 0; i < hitCount; i++) {
-		totalDamageEffects.push(weapon.onHit);
-	}
-	totalDamageEffects.push(bonusDamage);
 
-
-	
 	console.log(attacks);
 	console.log(bonusAttacks);
-	console.log(bonusDamage);
-	console.log(hitCount);
 	console.log(totalDamageEffects);
 
 }
