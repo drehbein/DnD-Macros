@@ -1,12 +1,35 @@
-// Function to handle rolling, referencing other functions for each step
+// After DOM content is loaded, defines presets
+document.addEventListener("DOMContentLoaded", function() {
+	presets = [
+		{
+			name: "prophet",
+			preset: "ToHit: 1d20+10 || Physical: 1d10+6 || Psychic: 1d8"
+		}, {
+			name: "crossbow",
+			preset: "ToHit: 1d20+8 || Physical: 1d6+4"
+		}, {
+			name: "unarmed",
+			preset: "ToHit: 1d20+9 || Physical: 6"
+		}
+	]
+});
+
+// Fills input with presets
+function loadPreset(presetName) {
+	inputReceiver = document.getElementById("input");
+	preset = presets.filter(preset => preset.name == presetName)[0].preset;
+	inputReceiver.value = preset;
+}
+
+// Handles rolling, referencing other functions for each step
 function roll() {
-	inputReceiver = document.getElementById("input")
+	inputReceiver = document.getElementById("input");
 	input = inputReceiver.value;
 	output = parseInput(input);
 	print(output);
 }
 
-// Function to transform user input like "ToHit: +10 || Physical: 1d10+6 || Psychic: 1d8" into "ToHit: # || Physical: # || Psychic: #"
+// Transforms user input like "ToHit: +10 || Physical: 1d10+6 || Psychic: 1d8" into "ToHit: # || Physical: # || Psychic: #"
 function parseInput(input) {
 	effectsArray = input.split(/ \|\| |\: /);
 	output = "";
@@ -40,7 +63,7 @@ function evaluateRandoms(roll) {
 	return(rollValue);
 }
 
-// Function to print result to output/log (start as simply setting inner html, then change to adding to a cumulative log, then make log save to local storage)
+// Adds result to output/log (start as simply setting inner html, then change to adding to a cumulative log, then make log save to local storage)
 function print(output) {
 	outputDisplay = document.getElementById("output");
 	let row = document.createElement("tr");
