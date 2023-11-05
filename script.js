@@ -29,6 +29,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	populateActions("casper");
 });
 
+document.addEventListener("keydown", function(event) {
+	if (event.key === "Enter" && !event.shiftKey && !event.ctrlKey && !event.altKey) {
+		roll();
+	}
+});
+
 // Populates actions bar
 function populateActions(characterName) {
 	actionsCont = document.getElementById("actionsCont");
@@ -74,7 +80,6 @@ function parseInput(input) {
 		outputCell.innerHTML = effectLabel + ": " + effectValue;
 		output.appendChild(outputCell);
 	}
-	console.log(output);
 	return(output);
 }
 
