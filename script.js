@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		{
 			name: "casper",
 			actions: [
-				{name: "prophet", preset: "ToHit: 1d20+10 || Physical: 1d10+6 || Psychic: 1d8"},
+				{name: "prophet", preset: "ToHit: 1d20+10 || Physical: 1d8+8 || Psychic: 1d8"},
 				{name: "crossbow", preset: "ToHit: 1d20+8 || Physical: 1d6+4"},
 				{name: "unarmed", preset: "ToHit: 1d20+9 || Physical: 6"}
 			]
@@ -26,9 +26,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		buttonCont.appendChild(button);
 		charactersCont.appendChild(buttonCont);
 	});
-	populateActions("casper");
+	populateActions(characters[0].name);
+	loadAction(characters[0].actions[0].name);
 });
 
+// Rolls when enter key is pressed
 document.addEventListener("keydown", function(event) {
 	if (event.key === "Enter" && !event.shiftKey && !event.ctrlKey && !event.altKey) {
 		roll();
@@ -64,10 +66,11 @@ function roll() {
 	print(output);
 }
 
-// Transforms user input like "ToHit: +10 || Physical: 1d10+6 || Psychic: 1d8" into "ToHit: # || Physical: # || Psychic: #"
+// Transforms user input from a string including rolls to a table row with calculated values
 function parseInput(input) {
 	effectsArray = input.split(/ \|\| |\: /);
 	output = document.createElement("tr");
+	output.addEventListener("click", removeRow);
 	if (effectsArray.length > 200) {
 		printMessage("Why do you need over a hundred effects?? Let me trim it down for ya.");
 		effectsArray = effectsArray.slice(0, 6);
@@ -81,6 +84,12 @@ function parseInput(input) {
 		output.appendChild(outputCell);
 	}
 	return(output);
+}
+
+// Removes table rows from log
+function removeRow (event) {
+	let row = event.currentTarget;
+	row.remove();
 }
 
 // Calculates individual rolls (1d20+6 => 26)
@@ -104,7 +113,7 @@ function evaluateRandoms(roll) {
 	return(rollValue);
 }
 
-// Adds result to output/log (start as simply setting inner html, then change to adding to a cumulative log, then make log save to local storage)
+// Adds result to output log
 function print(output) {
 	outputDisplay = document.getElementById("output");
 	outputDisplay.appendChild(output);
@@ -112,6 +121,7 @@ function print(output) {
 
 function printMessage(message) {
 	messageRow = document.createElement("tr");
+	messageRow.addEventListener("click", removeRow);
 	messageCell = document.createElement("td");
 	messageCell.setAttribute("colspan", 20);
 	messageCell.innerHTML = message;
