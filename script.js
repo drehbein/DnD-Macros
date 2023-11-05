@@ -90,6 +90,11 @@ function parseInput(input) {
 function removeRow (event) {
 	let row = event.currentTarget;
 	row.remove();
+	output = document.getElementById("output");
+	if (output.rows.length === 0) {
+		outputCont = document.getElementById ("outputCont");
+		outputCont.setAttribute("hidden", "hidden");
+	}
 }
 
 // Calculates individual rolls (1d20+6 => 26)
@@ -115,8 +120,11 @@ function evaluateRandoms(roll) {
 
 // Adds result to output log
 function print(output) {
+	outputCont = document.getElementById("outputCont");
+	outputCont.removeAttribute("hidden");
 	outputDisplay = document.getElementById("output");
 	outputDisplay.appendChild(output);
+	
 }
 
 function printMessage(message) {
