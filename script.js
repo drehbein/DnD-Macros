@@ -62,6 +62,10 @@ function roll() {
 function parseInput(input) {
 	effectsArray = input.split(/ \|\| |\: /);
 	output = document.createElement("tr");
+	if (effectsArray.length > 200) {
+		printMessage("Why do you need over a hundred effects?? Let me trim it down for ya.");
+		effectsArray = effectsArray.slice(0, 6);
+	};
 	while (effectsArray.length) {
 		let outputCell = document.createElement("td");
 		effectLabel = effectsArray.shift();
@@ -70,6 +74,7 @@ function parseInput(input) {
 		outputCell.innerHTML = effectLabel + ": " + effectValue;
 		output.appendChild(outputCell);
 	}
+	console.log(output);
 	return(output);
 }
 
@@ -80,6 +85,10 @@ function evaluateRandoms(roll) {
 		if (currentValue.includes("d")) {
 			dieQuantity = parseInt(currentValue.match(/^(\d+)d\d+$/)[1], 10);
 			dieSides = parseInt(currentValue.match(/^\d+d(\d+)$/)[1], 10);
+			if (dieQuantity > 10000000) {
+				printMessage("Why do you need more than ten million dice in a single effect?? Let me trim that down to a mere ten thousand.");
+				dieQuantity = 10000;
+			}
 			for (let i = 0; i < dieQuantity; i++) {
 				rollValue += Math.floor(Math.random() * dieSides) + 1;
 			}
@@ -93,6 +102,14 @@ function evaluateRandoms(roll) {
 // Adds result to output/log (start as simply setting inner html, then change to adding to a cumulative log, then make log save to local storage)
 function print(output) {
 	outputDisplay = document.getElementById("output");
-	let row = document.createElement("tr");
 	outputDisplay.appendChild(output);
+}
+
+function printMessage(message) {
+	messageRow = document.createElement("tr");
+	messageCell = document.createElement("td");
+	messageCell.setAttribute("colspan", 20);
+	messageCell.innerHTML = message;
+	messageRow.appendChild(messageCell);
+	print(messageRow);
 }
