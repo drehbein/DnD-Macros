@@ -1,18 +1,18 @@
-// After DOM content is loaded, defines characters, populates character navigation, and sets Casper as default
+// After DOM content is loaded, defines characters, populates character navigation, and sets Prophet as default
 document.addEventListener("DOMContentLoaded", function() {
 	characters = [
 		{
-			name: "casper",
+			name: "Casper",
 			actions: [
-				{name: "prophet", preset: "ToHit: 1d20+10 || Physical: 1d8+8 || Psychic: 1d8"},
-				{name: "crossbow", preset: "ToHit: 1d20+8 || Physical: 1d6+4"},
-				{name: "unarmed", preset: "ToHit: 1d20+9 || Physical: 6"}
+				{name: "Prophet", preset: "ToHit: 1d20+10 || Physical: 1d8+8 || Psychic: 1d8"},
+				{name: "Crossbow", preset: "ToHit: 1d20+8 || Physical: 1d6+4"},
+				{name: "Unarmed", preset: "ToHit: 1d20+9 || Physical: 6"}
 			]
 		}, {
-			name: "parfait",
+			name: "Parfait",
 			actions: [
-				{name: "cloakOfDaggars", preset: "ToHit: 1d20+13 || Physical: 1d6+6d4+20"},
-				{name: "unarmed", preset: "ToHit: 1d20+13 || Physical: 1d4+10"}
+				{name: "Cloak Of Daggars", preset: "ToHit: 1d20+13 || Physical: 1d6+6d4+20"},
+				{name: "Unarmed", preset: "ToHit: 1d20+13 || Physical: 1d4+10"}
 			]
 		}
 	]
