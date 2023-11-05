@@ -50,7 +50,7 @@ function loadAction(actionName) {
 	inputReceiver.value = preset;
 }
 
-// Handles rolling, referencing other functions for each step
+// Handles rolling
 function roll() {
 	inputReceiver = document.getElementById("input");
 	input = inputReceiver.value;
@@ -61,16 +61,14 @@ function roll() {
 // Transforms user input like "ToHit: +10 || Physical: 1d10+6 || Psychic: 1d8" into "ToHit: # || Physical: # || Psychic: #"
 function parseInput(input) {
 	effectsArray = input.split(/ \|\| |\: /);
-	output = "";
+	output = document.createElement("tr");
 	while (effectsArray.length) {
+		let outputCell = document.createElement("td");
 		effectLabel = effectsArray.shift();
-		output += effectLabel + ": ";
 		effectRoll = effectsArray.shift();
 		effectValue = evaluateRandoms(effectRoll.split("+"));
-		output += effectValue;
-		if (effectsArray.length) {
-			output += " || ";
-		}
+		outputCell.innerHTML = effectLabel + ": " + effectValue;
+		output.appendChild(outputCell);
 	}
 	return(output);
 }
@@ -96,6 +94,5 @@ function evaluateRandoms(roll) {
 function print(output) {
 	outputDisplay = document.getElementById("output");
 	let row = document.createElement("tr");
-	row.innerHTML = output;
-	outputDisplay.appendChild(row);
+	outputDisplay.appendChild(output);
 }
