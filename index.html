@@ -13,26 +13,18 @@
 	</header>
 	<section>
 		<nav>
-			<ul>
-				<li>Casper</li> <!--builds buttons from character data-->
-				<li>Parfait</li>
-				<li>etc.</li>
-			</ul>
+			<ul id="charactersCont"></ul>
 		</nav>
 		<article>
-			<button onClick="loadPreset('prophet')">Prophet</button>
-			<button onClick="loadPreset('crossbow')">Crossbow</button>
-			<button onClick="loadPreset('unarmed')">Unarmed</button>
-
-			<br>
-			<label for="input">Input:</label>
-			<input type="text" id="input" style="width:50%;" value="ToHit: 1d20+10 || Physical: 1d10+6 || Psychic: 1d8"></input>
-			<br>
-
-			<button onClick="roll()">Roll!</button>
-
-			<!-- Output log, confined height to fit screen, scroll bars -->
-			<table class="output" id="output"></table>
+			<div id="actionsCont"></div><br>
+			<div id="inputCont">
+				<label for="input">Input:</label>
+				<input type="text" id="input" style="width:50%;" value="ToHit: 1d20+10 || Physical: 1d10+6 || Psychic: 1d8"></input>
+				<button onClick="roll()">Roll!</button>
+			</div>
+			<div id="outputCont">
+				<table class="output" id="output"></table>
+			</div>
 		</article>
 	</section>
 	<footer>

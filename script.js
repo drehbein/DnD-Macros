@@ -1,23 +1,52 @@
-// After DOM content is loaded, defines presets
+// After DOM content is loaded, defines characters, populates character navigation, and sets Casper as default
 document.addEventListener("DOMContentLoaded", function() {
-	presets = [
+	characters = [
 		{
-			name: "prophet",
-			preset: "ToHit: 1d20+10 || Physical: 1d10+6 || Psychic: 1d8"
+			name: "casper",
+			actions: [
+				{name: "prophet", preset: "ToHit: 1d20+10 || Physical: 1d10+6 || Psychic: 1d8"},
+				{name: "crossbow", preset: "ToHit: 1d20+8 || Physical: 1d6+4"},
+				{name: "unarmed", preset: "ToHit: 1d20+9 || Physical: 6"}
+			]
 		}, {
-			name: "crossbow",
-			preset: "ToHit: 1d20+8 || Physical: 1d6+4"
-		}, {
-			name: "unarmed",
-			preset: "ToHit: 1d20+9 || Physical: 6"
+			name: "parfait",
+			actions: [
+				{name: "cloakOfDaggars", preset: "ToHit: 1d20+13 || Physical: 1d6+6d4+20"},
+				{name: "unarmed", preset: "ToHit: 1d20+13 || Physical: 1d4+10"}
+			]
 		}
 	]
+
+	charactersCont = document.getElementById("charactersCont");
+	characters.forEach(function(currentValue, index, array) {
+		let buttonCont = document.createElement("li");
+		let button = document.createElement("button");
+		button.textContent = currentValue.name;
+		button.onclick = function () {populateActions(currentValue.name);};
+		buttonCont.appendChild(button);
+		charactersCont.appendChild(buttonCont);
+	});
+	populateActions("casper");
 });
 
-// Fills input with presets
-function loadPreset(presetName) {
+// Populates actions bar
+function populateActions(characterName) {
+	actionsCont = document.getElementById("actionsCont");
+	actionsCont.innerHTML = "";
+	character = characters.filter(character => character.name == characterName)[0];
+	actions = character.actions;
+	actions.forEach(function(currentValue, index, array) {
+		let button = document.createElement("button");
+		button.textContent = currentValue.name;
+		button.onclick = function () {loadAction(currentValue.name)};
+		actionsCont.appendChild(button);
+	});
+}
+
+// Fills input with actions
+function loadAction(actionName) {
 	inputReceiver = document.getElementById("input");
-	preset = presets.filter(preset => preset.name == presetName)[0].preset;
+	preset = actions.filter(action => action.name == actionName)[0].preset;
 	inputReceiver.value = preset;
 }
 
