@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 html {
 	background: url(background.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
@@ -6,7 +10,59 @@ html {
 	background-size: cover;
 }
 
-table, td {
+body {
+	font-family: Roboto, Helvetica, sans-serif;
+}
+
+header {
+	text-align: center;
+}
+
+section {
+	display: flex;
+}
+
+nav {
+	float: left;
+	width: 25%;
+	padding: 20px;
+	background: #ccc;
+}
+
+nav ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+article {
+	float: left;
+	padding: 20px;
+	width: 75%;
+	background-color: #f1f1f1;
+}
+
+section::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+table {
 	border: 1px solid black;
 	border-radius: 10px;
+}
+
+footer {
+	text-align: center;
+}
+
+@media (max-width: 600px) {
+	section {
+		display: block;
+	}
+
+	nav, article {
+		width: 100%;
+		height: auto;
+	}
 }
