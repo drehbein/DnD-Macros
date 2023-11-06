@@ -41,6 +41,7 @@ nav {
 	/*background-color: rgba(255, 255, 255, 0.2);*/
 	float: left;
 	width: 25%;
+	min-width: 310px;
 	padding: 5%;
 }
 
@@ -51,7 +52,6 @@ nav ul {
 }
 nav ul li {
 	display: flex;
-	margin: 30px 0;
 }
 
 button {
@@ -61,7 +61,7 @@ button {
 	font-weight: 800;
 	text-transform: uppercase;
 	padding: 10px 26px;
-	margin: 0 13px;
+	margin: 10px 13px;
 }
 
 article {
@@ -94,7 +94,8 @@ input:focus {
 
 .roll {
 	width: 15%;
-	margin: 0 1%;
+	min-width: 100px;
+	margin: 0;
 }
 
 .cont {
@@ -146,5 +147,18 @@ footer {
 	nav, article {
 		width: 100%;
 		height: auto;
+	}
+
+	nav ul li {
+		display: inline-block;
+	}
+
+	input {
+		width: 100%;
+		margin-bottom: 15px;
+	}
+
+	.roll {
+		width: 100%;
 	}
 }
