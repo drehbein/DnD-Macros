@@ -1,4 +1,4 @@
-// After DOM content is loaded, defines characters, populates character navigation, and sets Prophet as default
+// After DOM content is loaded, defines characters, populates character navigation, sets Prophet as default, and ensures action log exists in local storage
 document.addEventListener("DOMContentLoaded", function() {
 	characters = [
 		{
@@ -28,12 +28,27 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 	populateActions(characters[0].name);
 	loadAction(characters[0].actions[0].name);
+
+	if (!localStorage.getItem("actionLog")) {
+		localStorage.setItem("actionLog", JSON.stringify([]));
+	}
 });
 
-// Rolls when enter key is pressed
+// Handles keyboard shortcuts
 document.addEventListener("keydown", function(event) {
+	// "Enter" = roll
 	if (event.key === "Enter" && !event.shiftKey && !event.ctrlKey && !event.altKey) {
 		roll();
+	}
+
+	// "Alt+Q" = clear local storage
+	if (event.key === "z" && !event.shiftKey && !event.ctrlKey && event.altKey) {
+		localStorage.clear();
+	}
+
+	// "Alt+X" to print the stored action log to the console
+	if (event.key === "x" && !event.shiftKey && !event.ctrlKey && event.altKey) {
+		console.log(JSON.parse(localStorage.getItem("actionLog")));
 	}
 });
 
@@ -62,8 +77,8 @@ function loadAction(actionName) {
 function roll() {
 	inputReceiver = document.getElementById("input");
 	input = inputReceiver.value;
-	output = parseInput(input);
-	print(output);
+	parseInput(input);
+	renderActionLog();
 }
 
 // Transforms user input from a string including rolls to a table row with calculated values
@@ -75,26 +90,25 @@ function parseInput(input) {
 		printMessage("Why do you need over a hundred effects?? Let me trim it down for ya.");
 		effectsArray = effectsArray.slice(0, 6);
 	};
+	let action = {};
 	while (effectsArray.length) {
 		let outputCell = document.createElement("td");
 		effectLabel = effectsArray.shift();
 		effectRoll = effectsArray.shift();
 		effectValue = evaluateRandoms(effectRoll.split("+"));
-		outputCell.innerHTML = effectLabel + ": " + effectValue;
-		output.appendChild(outputCell);
+		action[effectLabel] = effectValue;
 	}
-	return(output);
+	actionLog = JSON.parse(localStorage.getItem("actionLog"));
+	actionLog.push(action);
+	localStorage.setItem("actionLog", JSON.stringify(actionLog));
 }
 
 // Removes table rows from log
-function removeRow (event) {
-	let row = event.currentTarget;
-	row.remove();
-	output = document.getElementById("output");
-	if (output.rows.length === 0) {
-		outputCont = document.getElementById ("outputCont");
-		outputCont.setAttribute("hidden", "hidden");
-	}
+function removeRow (row) {
+	actionLog = JSON.parse(localStorage.getItem("actionLog"));
+	actionLog.splice(row, 1);
+	localStorage.setItem("actionLog", JSON.stringify(actionLog));
+	renderActionLog();
 }
 
 // Calculates individual rolls (1d20+6 => 26)
@@ -118,12 +132,49 @@ function evaluateRandoms(roll) {
 	return(rollValue);
 }
 
-// Adds result to output log
-function print(output) {
+// Displays contents of the stored action log
+function renderActionLog() {
 	outputCont = document.getElementById("outputCont");
 	outputCont.removeAttribute("hidden");
-	outputDisplay = document.getElementById("output");
-	outputDisplay.appendChild(output);
+	outputDisplay = document.createElement("table");
+	outputDisplay.setAttribute("id", "output");
+	outputDisplay.setAttribute("class", "output");
+	actionLog = JSON.parse(localStorage.getItem("actionLog"));
+	if (actionLog.length === 0) {
+		outputCont = document.getElementById ("outputCont");
+		outputCont.setAttribute("hidden", "hidden");
+	}
+
+	// Adds header with all unique damage types
+	let uniqueDamageTypes = new Set();
+	actionLog.forEach(function(action) {
+		Object.keys(action).forEach(function(damageType) {
+			uniqueDamageTypes.add(damageType);
+		});
+	});
+	tableHead = document.createElement("tr");
+	uniqueDamageTypes.forEach(function(uniqueDamageType) {
+		headCell = document.createElement("th");
+		headCell.innerHTML = uniqueDamageType;
+		tableHead.appendChild(headCell);
+	});
+	outputDisplay.appendChild(tableHead);
+
+	// Adds rows, sorted according to the header
+	actionLog.forEach((element, index) => {
+		actionRow = document.createElement("tr");
+		actionRow.addEventListener("click", function () {
+			removeRow(index);
+		});
+		uniqueDamageTypes.forEach(function(uniqueDamageType) {
+			tableCell = document.createElement("td");
+			tableCell.innerHTML = element[uniqueDamageType] !== undefined ? element[uniqueDamageType] : "";
+			actionRow.appendChild(tableCell);
+		});
+		outputDisplay.appendChild(actionRow);
+	});
+	outputCont.innerHTML = "";
+	outputCont.appendChild(outputDisplay);
 	
 }
 

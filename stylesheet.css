@@ -115,7 +115,7 @@ th, td {
 	border: 1px solid #972e2e;
 }
 
-td {
+th, td {
 	padding: 10px;
 	text-align: center;
 	color: #fff;
