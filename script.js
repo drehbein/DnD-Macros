@@ -28,7 +28,20 @@ document.addEventListener("DOMContentLoaded", function() {
 				{name: "Rock", preset: "ToHit: 1d20+9 || Bludgeoning: 4d10+6"}
 			]
 		}
-	]
+	];
+
+	let urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.has("user") && urlParams.get("user") === "Alex") {
+		characters.unshift(
+			{
+				name: "Alex's Secret Boss",
+				actions: [
+					{name:"Smite", preset: "Tohit: 20 || True Damage: 1200"}
+				]
+			}
+		);
+	}
+
 
 	charactersCont = document.getElementById("charactersCont");
 	characters.forEach(function(currentValue, index, array) {
