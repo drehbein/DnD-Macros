@@ -105,11 +105,10 @@ function parseInput(input) {
 	};
 	let action = {};
 	while (effectsArray.length) {
-		let outputCell = document.createElement("td");
 		effectLabel = effectsArray.shift();
 		effectRoll = effectsArray.shift();
 		effectValue = evaluateRandoms(effectRoll.split("+"));
-		action[effectLabel] = effectValue;
+		isNaN(action[effectLabel]) ? action[effectLabel] = effectValue : action[effectLabel] += effectValue;
 	}
 	actionLog = JSON.parse(localStorage.getItem("actionLog"));
 	actionLog.push(action);
