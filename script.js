@@ -21,6 +21,12 @@ document.addEventListener("DOMContentLoaded", function() {
 				{name: "Hatchet", preset: "ToHit: 1d20+2 || Physical: 1d6"},
 				// {name: "Decorative Dwarven Blade", preset: "ToHit: 1d20 || Physical: 1d6+"},
 			]
+		}, {
+			name: "Stone Giant",
+			actions: [
+				{name: "Greatclub", preset: "ToHit: 1d20+9 || Bludgeoning: 3d8+6"},
+				{name: "Rock", preset: "ToHit: 1d20+9 || Bludgeoning: 4d10+6"}
+			]
 		}
 	]
 
