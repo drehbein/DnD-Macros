@@ -14,6 +14,13 @@ document.addEventListener("DOMContentLoaded", function() {
 				{name: "Cloak Of Daggars", preset: "ToHit: 1d20+13 || Physical: 1d6+6d4+20"},
 				{name: "Unarmed", preset: "ToHit: 1d20+13 || Physical: 1d4+10"}
 			]
+		}, {
+			name: "Clover",
+			actions: [
+				{name: "Crossbow", preset: "ToHit: 1d20+3 || Physical: 1d6"},
+				{name: "Hatchet", preset: "ToHit: 1d20+2 || Physical: 1d6"},
+				// {name: "Decorative Dwarven Blade", preset: "ToHit: 1d20 || Physical: 1d6+"},
+			]
 		}
 	]
 
