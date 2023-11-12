@@ -67,12 +67,12 @@ document.addEventListener("keydown", function(event) {
 		roll();
 	}
 
-	// "Alt+Q" = clear local storage
-	if (event.key === "z" && !event.shiftKey && !event.ctrlKey && event.altKey) {
-		localStorage.clear();
+	// "Alt+c" = clear action log
+	if (event.key === "c" && !event.shiftKey && !event.ctrlKey && event.altKey) {
+		clearActionLog();
 	}
 
-	// "Alt+X" to print the stored action log to the console
+	// "Alt+x" to print the stored action log to the console
 	if (event.key === "x" && !event.shiftKey && !event.ctrlKey && event.altKey) {
 		console.log(JSON.parse(localStorage.getItem("actionLog")));
 	}
@@ -105,6 +105,13 @@ function roll() {
 	inputReceiver = document.getElementById("input");
 	input = inputReceiver.value;
 	parseInput(input);
+	renderActionLog();
+}
+
+// Hadles clearing
+function clearActionLog() {
+	localStorage.clear();
+	localStorage.setItem("actionLog", JSON.stringify([]));
 	renderActionLog();
 }
 

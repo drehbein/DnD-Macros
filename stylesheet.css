@@ -83,7 +83,7 @@ input {
 	background-color: #26282a;
 	color: #fff;
 	border: 1px solid #972e2e;
-	width: 80%;
+	width: 65%;
 	font-size: 1em;
 	padding: 8.5px 10px;
 }
@@ -92,8 +92,8 @@ input:focus {
 	outline: 3px solid #972e2e;
 }
 
-.roll {
-	width: 15%;
+.inputButton {
+	width: 10%;
 	min-width: 100px;
 	margin: 0;
 }
