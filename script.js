@@ -110,7 +110,6 @@ function roll() {
 
 // Hadles clearing
 function clearActionLog() {
-	localStorage.clear();
 	localStorage.setItem("actionLog", JSON.stringify([]));
 	renderActionLog();
 }
