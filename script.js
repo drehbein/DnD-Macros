@@ -128,7 +128,7 @@ function parseInput(input) {
 	while (effectsArray.length) {
 		effectLabel = effectsArray.shift();
 		effectRoll = effectsArray.shift();
-		effectValue = effectLabel === "Name" ? effectRoll : evaluateRandoms(effectRoll.split("+"));
+		effectValue = /^[d+\d]+$/.test(effectRoll) ? evaluateRandoms(effectRoll.split("+")) : effectRoll;
 		isNaN(action[effectLabel]) ? action[effectLabel] = effectValue : action[effectLabel] += effectValue;
 	}
 	actionLog = JSON.parse(localStorage.getItem("actionLog"));
