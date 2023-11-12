@@ -95,7 +95,8 @@ function populateActions(characterName) {
 // Fills input with actions
 function loadAction(actionName) {
 	inputReceiver = document.getElementById("input");
-	preset = actions.filter(action => action.name == actionName)[0].preset;
+	action = actions.filter(action => action.name == actionName)[0];
+	preset = "Name: " + action.name + " || " + action.preset;
 	inputReceiver.value = preset;
 }
 
@@ -120,7 +121,7 @@ function parseInput(input) {
 	while (effectsArray.length) {
 		effectLabel = effectsArray.shift();
 		effectRoll = effectsArray.shift();
-		effectValue = evaluateRandoms(effectRoll.split("+"));
+		effectValue = effectLabel === "Name" ? effectRoll : evaluateRandoms(effectRoll.split("+"));
 		isNaN(action[effectLabel]) ? action[effectLabel] = effectValue : action[effectLabel] += effectValue;
 	}
 	actionLog = JSON.parse(localStorage.getItem("actionLog"));
