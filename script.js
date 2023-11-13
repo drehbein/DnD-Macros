@@ -117,6 +117,9 @@ function clearActionLog() {
 // Transforms user input from a string including rolls to a table row with calculated values
 function parseInput(input) {
 	effectsArray = input.split(/ \|\| |\: /);
+	if (!effectsArray.includes("Name") && !effectsArray.includes("name")) {
+		return;
+	}
 	output = document.createElement("tr");
 	output.addEventListener("click", removeRow);
 	if (effectsArray.length > 200) {
