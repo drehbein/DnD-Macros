@@ -57,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	if (!localStorage.getItem("actionLog")) {
 		localStorage.setItem("actionLog", JSON.stringify([]));
+	} else {
+		renderActionLog();
 	}
 });
 
@@ -123,7 +125,7 @@ function parseInput(input) {
 	output = document.createElement("tr");
 	output.addEventListener("click", removeRow);
 	if (effectsArray.length > 200) {
-		printMessage("Why do you need over a hundred effects?? Let me trim it down for ya.");
+		alert("Why do you need over a hundred effects?? Let me trim it down for ya.");
 		effectsArray = effectsArray.slice(0, 6);
 	};
 	let action = {};
@@ -154,7 +156,7 @@ function evaluateRandoms(roll) {
 			dieQuantity = parseInt(currentValue.match(/^(\d+)d\d+$/)[1], 10);
 			dieSides = parseInt(currentValue.match(/^\d+d(\d+)$/)[1], 10);
 			if (dieQuantity > 10000000) {
-				printMessage("Why do you need more than ten million dice in a single effect?? Let me trim that down to a mere ten thousand.");
+				alert("Why do you need more than ten million dice in a single effect?? Let me trim that down to a mere ten thousand.");
 				dieQuantity = 10000;
 			}
 			for (let i = 0; i < dieQuantity; i++) {
@@ -240,14 +242,4 @@ function renderActionLog() {
 
 	outputCont.innerHTML = "";
 	outputCont.appendChild(outputDisplay);
-}
-
-function printMessage(message) {
-	messageRow = document.createElement("tr");
-	messageRow.addEventListener("click", removeRow);
-	messageCell = document.createElement("td");
-	messageCell.setAttribute("colspan", 20);
-	messageCell.innerHTML = message;
-	messageRow.appendChild(messageCell);
-	print(messageRow);
 }
