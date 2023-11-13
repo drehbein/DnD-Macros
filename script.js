@@ -4,28 +4,28 @@ document.addEventListener("DOMContentLoaded", function() {
 		{
 			name: "Casper",
 			actions: [
-				{name: "Prophet", preset: "ToHit: 1d20+10 || Physical: 1d8+8 || Psychic: 1d8"},
-				{name: "Crossbow", preset: "ToHit: 1d20+8 || Physical: 1d6+4"},
-				{name: "Unarmed", preset: "ToHit: 1d20+9 || Physical: 6"}
+				{name: "Prophet", preset: "To-Hit: 1d20+10 || Physical: 1d8+8 || Psychic: 1d8"},
+				{name: "Crossbow", preset: "To-Hit: 1d20+8 || Physical: 1d6+4"},
+				{name: "Unarmed", preset: "To-Hit: 1d20+9 || Physical: 6"}
 			]
 		}, {
 			name: "Parfait",
 			actions: [
-				{name: "Cloak Of Daggars", preset: "ToHit: 1d20+13 || Physical: 1d6+6d4+20"},
-				{name: "Unarmed", preset: "ToHit: 1d20+13 || Physical: 1d4+10"}
+				{name: "Cloak Of Daggars", preset: "To-Hit: 1d20+13 || Physical: 1d6+6d4+20"},
+				{name: "Unarmed", preset: "To-Hit: 1d20+13 || Physical: 1d4+10"}
 			]
 		}, {
 			name: "Clover",
 			actions: [
-				{name: "Crossbow", preset: "ToHit: 1d20+3 || Physical: 1d6"},
-				{name: "Hatchet", preset: "ToHit: 1d20+2 || Physical: 1d6"},
-				// {name: "Decorative Dwarven Blade", preset: "ToHit: 1d20 || Physical: 1d6+"},
+				{name: "Crossbow", preset: "To-Hit: 1d20+3 || Physical: 1d6"},
+				{name: "Hatchet", preset: "To-Hit: 1d20+2 || Physical: 1d6"},
+				// {name: "Decorative Dwarven Blade", preset: "To-Hit: 1d20 || Physical: 1d6+"},
 			]
 		}, {
 			name: "Stone Giant",
 			actions: [
-				{name: "Greatclub", preset: "ToHit: 1d20+9 || Bludgeoning: 3d8+6"},
-				{name: "Rock", preset: "ToHit: 1d20+9 || Bludgeoning: 4d10+6"}
+				{name: "Greatclub", preset: "To-Hit: 1d20+9 || Bludgeoning: 3d8+6"},
+				{name: "Rock", preset: "To-Hit: 1d20+9 || Bludgeoning: 4d10+6"}
 			]
 		}
 	];
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			{
 				name: "Alex's Secret Boss",
 				actions: [
-					{name:"Smite", preset: "Tohit: 20 || True Damage: 1200"}
+					{name:"Smite", preset: "To-Hit: 20 || True Damage: 1200"}
 				]
 			}
 		);
@@ -192,12 +192,10 @@ function renderActionLog() {
 	});
 	outputDisplay.appendChild(tableHead);
 
-	// Adds rows, sorted according to the header
+	// Adds action rows, sorted according to the header
 	actionLog.forEach((element, index) => {
 		actionRow = document.createElement("tr");
-		actionRow.addEventListener("click", function () {
-			removeRow(index);
-		});
+		actionRow.addEventListener("click", function () {removeRow(index);});
 		uniqueDamageTypes.forEach(function(uniqueDamageType) {
 			tableCell = document.createElement("td");
 			tableCell.innerHTML = element[uniqueDamageType] !== undefined ? element[uniqueDamageType] : "";
@@ -205,9 +203,40 @@ function renderActionLog() {
 		});
 		outputDisplay.appendChild(actionRow);
 	});
+
+	// Adds total row at the bottom
+	if (actionLog.length > 1) {
+		totalRow = document.createElement("tr");
+		totalRow.addEventListener("click", function () {removeRow(index);});
+		uniqueDamageTypes.forEach(function(uniqueDamageType) {
+			tableCell = document.createElement("td");
+			switch (uniqueDamageType) {
+				case "Name":
+					tableCell.innerHTML = "Total";
+					break;
+				case "To-Hit":
+					let minToHit = actionLog[0][uniqueDamageType]
+					actionLog.forEach((element) => {
+						if (element[uniqueDamageType] < minToHit) {minToHit = element[uniqueDamageType];}
+					});
+					tableCell.innerHTML = minToHit;
+					break;
+				default:
+					tableCell.innerHTML = 0;
+					actionLog.forEach((element) => {
+						valueToAdd = element[uniqueDamageType];
+						if (typeof valueToAdd === "number") {
+							tableCell.innerHTML = parseInt(tableCell.innerHTML) + valueToAdd;
+						}
+					});
+			}
+			totalRow.appendChild(tableCell);
+		});
+		outputDisplay.appendChild(totalRow);
+	}
+
 	outputCont.innerHTML = "";
 	outputCont.appendChild(outputDisplay);
-	
 }
 
 function printMessage(message) {
