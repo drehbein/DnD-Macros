@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			actions: [
 				{name: "Dagger", preset: "To-Hit: 1d20+9 || Physical: 1d4+4"},
 				{name: "Shortbow", preset: "To-Hit: 1d20+9 || Physical: 1d6+4"},
-				{name: "Unarmed", preset: "To-Hit: 1d20+13 || Physical: 1d4+10"}
+				{name: "Unarmed", preset: "To-Hit: 1d20+7 || Physical: 3"}
 			]
 		}, {
 			name: "Clover",
