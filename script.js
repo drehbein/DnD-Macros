@@ -6,7 +6,10 @@ document.addEventListener("DOMContentLoaded", function() {
 			actions: [
 				{name: "Prophet", preset: "To-Hit: 1d20+11 || Physical: 1d8+8 || Psychic: 1d8"},
 				{name: "Crossbow", preset: "To-Hit: 1d20+9 || Physical: 1d6+4"},
-				{name: "Unarmed", preset: "To-Hit: 1d20+10 || Physical: 6"}
+				{name: "Unarmed", preset: "To-Hit: 1d20+10 || Physical: 6"},
+				{name: "Green-Flame Blade", preset: "Fire: 2d8 || Fire (T2): 2d8+3"},
+				{name: "Fire Bolt", preset: "To-Hit: 1d20+3 || Fire: 3d10"},
+				{name: "Hellish Rebuke", preset: "DC: 12 || Fire: 2d10"}
 			]
 		}, {
 			name: "Parfait",
