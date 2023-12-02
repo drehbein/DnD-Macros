@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		}, {
 			name: "Parfait",
 			actions: [
-				{name: "Cloak Of Daggars", preset: "To-Hit: 1d20+13 || Physical: 1d6+6d4+20"},
+				{name: "Dagger", preset: "To-Hit: 1d20+9 || Physical: 1d4+4"},
+				{name: "Shortbow", preset: "To-Hit: 1d20+9 || Physical: 1d6+4"},
 				{name: "Unarmed", preset: "To-Hit: 1d20+13 || Physical: 1d4+10"}
 			]
 		}, {
