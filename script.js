@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		{
 			name: "Casper",
 			actions: [
-				{name: "Prophet", preset: "To-Hit: 1d20+10 || Physical: 1d8+8 || Psychic: 1d8"},
-				{name: "Crossbow", preset: "To-Hit: 1d20+8 || Physical: 1d6+4"},
-				{name: "Unarmed", preset: "To-Hit: 1d20+9 || Physical: 6"}
+				{name: "Prophet", preset: "To-Hit: 1d20+11 || Physical: 1d8+8 || Psychic: 1d8"},
+				{name: "Crossbow", preset: "To-Hit: 1d20+9 || Physical: 1d6+4"},
+				{name: "Unarmed", preset: "To-Hit: 1d20+10 || Physical: 6"}
 			]
 		}, {
 			name: "Parfait",
