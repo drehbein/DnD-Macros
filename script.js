@@ -4,13 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		{
 			name: "Casper",
 			actions: [
-				{name: "Prophet (A)", preset: "To-Hit: 1d20+11 || Physical: 1d8+8 || Psychic: 1d8"},
-				{name: "Prophet (BA)", preset: "To-Hit: 1d20+11 || Physical: 1d2+8 || Psychic: 1d8"},
+				{name: "Prophet (A)", preset: "To-Hit: 1d20+11 || Physical: 1d8+8 || Psychic: 1d8", minCrit: "19"},
+				{name: "Prophet (BA)", preset: "To-Hit: 1d20+11 || Physical: 1d2+8 || Psychic: 1d8", minCrit: "19"},
 				{name: "Prophet (Repel)", preset: ""},
-				{name: "Crossbow", preset: "To-Hit: 1d20+9 || Physical: 1d6+4"},
-				{name: "Unarmed", preset: "To-Hit: 1d20+10 || Physical: 6"},
 				{name: "Green-Flame Blade", preset: "Fire: 2d8 || Fire (T2): 2d8+3"},
-				{name: "Fire Bolt", preset: "To-Hit: 1d20+3 || Fire: 3d10"},
+				{name: "Fire Bolt", preset: "To-Hit: 1d20+8 || Fire: 3d10"},
 				{name: "Hellish Rebuke", preset: "DC: 16 || Fire: 2d10"},
 				{name: "Burning Hands", preset: "DC: 16 || Fire: 3d6"}
 			]
@@ -26,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
 			actions: [
 				{name: "Crossbow", preset: "To-Hit: 1d20+3 || Physical: 1d6"},
 				{name: "Hatchet", preset: "To-Hit: 1d20+2 || Physical: 1d6"},
-				// {name: "Decorative Dwarven Blade", preset: "To-Hit: 1d20 || Physical: 1d6+"},
 			]
 		}, {
 			name: "Stone Giant",
@@ -101,11 +98,14 @@ function populateActions(characterName) {
 	});
 }
 
-// Fills input with actions
+// Fills input with action
 function loadAction(actionName) {
 	inputReceiver = document.getElementById("input");
 	action = actions.filter(action => action.name == actionName)[0];
 	preset = "Name: " + action.name + " || " + action.preset;
+	if (action.minCrit) {
+		preset = preset.concat(" || Min Crit: " + action.minCrit);
+	}
 	inputReceiver.value = preset;
 }
 
@@ -123,28 +123,62 @@ function clearActionLog() {
 	renderActionLog();
 }
 
-// Transforms user input from a string including rolls to a table row with calculated values
+// Transforms user input from a string into an object
 function parseInput(input) {
 	effectsArray = input.split(/ \|\| |\: /);
-	if (!effectsArray.includes("Name") && !effectsArray.includes("name")) {
-		return;
-	}
-	output = document.createElement("tr");
-	output.addEventListener("click", removeRow);
 	if (effectsArray.length > 200) {
 		alert("Why do you need over a hundred effects?? Let me trim it down for ya.");
 		effectsArray = effectsArray.slice(0, 6);
 	};
+	if (effectsArray.indexOf("Min Crit") !== -1 ) {
+		var minCrit = effectsArray.splice(effectsArray.indexOf("Min Crit"), 2)[1] || 20;
+		console.log(minCrit);
+	}
 	let action = {};
 	while (effectsArray.length) {
 		effectLabel = effectsArray.shift();
 		effectRoll = effectsArray.shift();
 		effectValue = /^[d+\d]+$/.test(effectRoll) ? evaluateRandoms(effectRoll.split("+")) : effectRoll;
 		isNaN(action[effectLabel]) ? action[effectLabel] = effectValue : action[effectLabel] += effectValue;
+		// Doubles all damage rolls on crits
+		if (effectLabel === "To-Hit" && minCrit <= effectValue - /\+(\d+)/.exec(effectRoll)[1]) {
+			effectsArray = doubleDamageDice(effectsArray);
+			action["Crit"] = true;
+		}
 	}
 	actionLog = JSON.parse(localStorage.getItem("actionLog"));
 	actionLog.push(action);
 	localStorage.setItem("actionLog", JSON.stringify(actionLog));
+}
+
+// Doubles damage dice for crits
+function doubleDamageDice(effectArray) {
+	// Condition for modification; matching a roll format like 4d5+3
+	var shouldModify = function (inputString) {
+		return inputString.includes("d");
+	};
+
+	// Modification logic
+	var modifyItem = function (inputString) {
+		var pattern = /(\d+)d(\d+)/g;
+
+		function replaceCallback(match, number1, number2) {
+			var newNumber1 = parseInt(number1) * 2;
+			return newNumber1 + "d" + number2;
+		}
+		return inputString.replace(pattern, replaceCallback);
+	};
+
+	// Map for selective modification
+	var modifiedArray = effectsArray.map(function (item) {
+		if (shouldModify(item)) {
+			return modifyItem(item);
+		} else {
+			return item;
+		}
+	});
+
+	return modifiedArray;
 }
 
 // Removes table rows from log
