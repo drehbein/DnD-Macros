@@ -227,9 +227,9 @@ function renderActionLog() {
 					tableCell.innerHTML = "Total";
 					break;
 				case "To-Hit":
-					let minToHit = actionLog[0][uniqueDamageType]
+					let minToHit = Infinity;
 					actionLog.forEach((element) => {
-						if (element[uniqueDamageType] < minToHit) {minToHit = element[uniqueDamageType];}
+						if (element["To-Hit"] < minToHit && element["To-Hit"]) {minToHit = element["To-Hit"];}
 					});
 					tableCell.innerHTML = minToHit;
 					break;
