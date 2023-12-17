@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			actions: [
 				{name: "Prophet (A)", preset: "To-Hit: 1d20+11 || Physical: 1d8+8 || Psychic: 1d8", minCrit: "19"},
 				{name: "Prophet (BA)", preset: "To-Hit: 1d20+11 || Physical: 1d2+8 || Psychic: 1d8", minCrit: "19"},
-				{name: "Prophet (Repel)", preset: ""},
+				{name: "Prophet (Repel)", preset: "To-Hit: 1d20+11 || Physical: 1d8+8 || Psychic: 2d8", minCrit: "19"},
 				{name: "Green-Flame Blade", preset: "Fire: 2d8 || Fire (T2): 2d8+3"},
 				{name: "Fire Bolt", preset: "To-Hit: 1d20+8 || Fire: 3d10"},
 				{name: "Hellish Rebuke", preset: "DC: 16 || Fire: 2d10"},
