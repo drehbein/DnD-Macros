@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", function() {
 				{name: "Prophet (BA)", preset: "To-Hit: 1d20+11 || Physical: 1d2+8 || Psychic: 1d8", minCrit: "19"},
 				{name: "Prophet (Repel)", preset: "Psychic: 1d8"},
 				{name: "Green-Flame Blade", preset: "Fire: 2d8 || Fire (T2): 2d8+3"},
-				{name: "Fire Bolt", preset: "To-Hit: 1d20+8 || Fire: 3d10"},
-				{name: "Hellish Rebuke", preset: "DC: 16 || Fire: 2d10"},
-				{name: "Burning Hands", preset: "DC: 16 || Fire: 3d6"}
+				{name: "Fire Bolt", preset: "To-Hit: 1d20+9 || Fire: 3d10"},
+				{name: "Hellish Rebuke", preset: "DC: 17 || Fire: 2d10"},
+				{name: "Burning Hands", preset: "DC: 17 || Fire: 3d6"}
 			]
 		}, {
 			name: "Parfait",
