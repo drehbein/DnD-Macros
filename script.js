@@ -4,9 +4,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		{
 			name: "Casper",
 			actions: [
-				{name: "Prophet (A)", preset: "To-Hit: 1d20+11 || Physical: 1d8+8 || Psychic: 1d8", minCrit: "19"},
-				{name: "Prophet (BA)", preset: "To-Hit: 1d20+11 || Physical: 1d2+8 || Psychic: 1d8", minCrit: "19"},
+				{name: "Prophet (A)", preset: "To-Hit: 1d20+11 || Physical: 1d8+8 || Psychic: 1d8", minCrit: "18"},
+				{name: "Prophet (BA)", preset: "To-Hit: 1d20+11 || Physical: 1d2+8 || Psychic: 1d8", minCrit: "18"},
 				{name: "Prophet (Repel)", preset: "Psychic: 1d8"},
+				{name: "Sentry Spear", preset: "To-Hit: 1d20+12 || Physical: 1d4+9 || Lightning: 2d6", minCrit: "18"},
 				{name: "Green-Flame Blade", preset: "Fire: 2d8 || Fire (T2): 2d8+3"},
 				{name: "Fire Bolt", preset: "To-Hit: 1d20+9 || Fire: 3d10"},
 				{name: "Hellish Rebuke", preset: "DC: 17 || Fire: 2d10"},
