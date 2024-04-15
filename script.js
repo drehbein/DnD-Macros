@@ -14,23 +14,23 @@ document.addEventListener("DOMContentLoaded", function() {
 				{name: "Burning Hands", preset: "DC: 18 || Fire: 3d6"}
 			]
 		}, {
-			name: "Parfait",
+			name: "Quasit",
 			actions: [
-				{name: "Dagger", preset: "To-Hit: 1d20+9 || Physical: 1d4+4"},
-				{name: "Shortbow", preset: "To-Hit: 1d20+9 || Physical: 1d6+4"},
-				{name: "Unarmed", preset: "To-Hit: 1d20+7 || Physical: 3"}
+				{name: "Claw/Bite", preset: "To-Hit: 1d20+4 || Piercing: 1d4+3 || DC Con: 10 || Poison: 2d4 || Poisoned: 1"},
+				{name: "Scare", preset: "DC Wis: 10 || Freightened: 1"},
 			]
 		}, {
-			name: "Clover",
+			name: "Baneling",
 			actions: [
-				{name: "Crossbow", preset: "To-Hit: 1d20+3 || Physical: 1d6"},
-				{name: "Hatchet", preset: "To-Hit: 1d20+2 || Physical: 1d6"},
+				{name: "Bite", preset: "To-Hit: 1d20+4 || Acid: 1d4"},
+				{name: "Death Burst", preset: "DC Dex: 12 || Acid: 2d6"}
 			]
 		}, {
-			name: "Stone Giant",
+			name: "Dretch",
 			actions: [
-				{name: "Greatclub", preset: "To-Hit: 1d20+9 || Bludgeoning: 3d8+6"},
-				{name: "Rock", preset: "To-Hit: 1d20+9 || Bludgeoning: 4d10+6"}
+				{name: "Bite", preset: "To-Hit: 1d20+2 || Piercing: 1d6"},
+				{name: "Claws", preset: "To-Hit: 1d20+2 || Slashing: 2d4"},
+				{name: "Fetid Cloud", preset: "DC Con: 11 || Poisoned: 1"}
 			]
 		}
 	];
@@ -132,8 +132,9 @@ function parseInput(input) {
 		effectsArray = effectsArray.slice(0, 6);
 	};
 	if (effectsArray.indexOf("Min Crit") !== -1 ) {
-		var minCrit = effectsArray.splice(effectsArray.indexOf("Min Crit"), 2)[1] || 20;
-		console.log(minCrit);
+		var minCrit = effectsArray.splice(effectsArray.indexOf("Min Crit"), 2)[1];
+	} else {
+		var minCrit = 20;
 	}
 	let action = {};
 	while (effectsArray.length) {
