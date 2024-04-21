@@ -4,14 +4,46 @@ document.addEventListener("DOMContentLoaded", function() {
 		{
 			name: "Casper",
 			actions: [
-				{name: "Prophet (A)", preset: "To-Hit: 1d20+12 || Physical: 1d8+9 || Psychic: 2d8", minCrit: "18"},
-				{name: "Prophet (BA)", preset: "To-Hit: 1d20+12 || Physical: 1d2+9 || Psychic: 2d8", minCrit: "18"},
-				{name: "Prophet (Repel)", preset: "Psychic: 1d8"},
-				{name: "Sentry Spear", preset: "To-Hit: 1d20+12 || Physical: 1d4+9 || Lightning: 2d6", minCrit: "18"},
+				{name: "Prophet (A)", preset: "To-Hit: 1d20+13 || Physical: 1d8+9 || Psychic: 2d8", minCrit: "18"},
+				{name: "Prophet (BA)", preset: "To-Hit: 1d20+13 || Physical: 1d2+9 || Psychic: 2d8", minCrit: "18"},
+				{name: "Prophet (Repel)", preset: "Psychic: 2d8 || DC ?: 18 || Prone: 1"},
+				{name: "Prophet (Restraint)", preset: "Psychic: 2d8 || DC Wis: 18 || Restrained: 1"},
+				{name: "Sentry Spear", preset: "To-Hit: 1d20+13 || Physical: 1d4+9 || Lightning: 2d6", minCrit: "18"},
 				{name: "Green-Flame Blade", preset: "Fire: 2d8 || Fire (T2): 2d8+5"},
-				{name: "Fire Bolt", preset: "To-Hit: 1d20+10 || Fire: 3d10"},
-				{name: "Hellish Rebuke", preset: "DC: 18 || Fire: 2d10"},
-				{name: "Burning Hands", preset: "DC: 18 || Fire: 3d6"}
+				{name: "Fire Bolt", preset: "To-Hit: 1d20+12 || Fire: 3d10"},
+				{name: "Chromatic Orb", preset: "To-Hit: 1d20+12 || Fire: 3d8"},
+				{name: "Hellish Rebuke", preset: "DC Dex: 18 || Fire: 2d10"},
+				{name: "Burning Hands", preset: "DC Dex: 18 || Fire: 3d6"},
+				{name: "Arms of Hadar", preset: "DC Str: 18 || Necrotic: 2d6"},
+				{name: "Absorb Elements", preset: "Fire: 1d6"},
+				{name: "Dragon's Breath", preset: "DC Dex: 18 || Fire: 3d6"},
+				{name: "Heat Metal", preset: "Fire: 2d8 || DC Con: 18 || Drop or Debuff: 1"},
+				{name: "Flaming Sphere", preset: "DC Dex: 18 || Fire: 2d6"},
+				{name: "Pyrotechnics", preset: "DC Con: 18 || Blind: 1"},
+				{name: "Ashardalon's Stride", preset: "Fire: 1d6"},
+				{name: "Elemental Weapon", preset: "Fire: 1d4"}
+			]
+		}, {
+			name: "Casper 0.5",
+			actions: [
+				{name: "X Prophet (A)", preset: "To-Hit: 1d20+7 || Physical: 1d4+5 || Psychic: 1d8", minCrit: "18"},
+				{name: "X Prophet (BA)", preset: "To-Hit: 1d20+7 || Physical: 1d1+5 || Psychic: 1d8", minCrit: "18"},
+				{name: "X Prophet (Repel)", preset: "Psychic: 1d8 || DC ?: 18 || Prone: 1"},
+				{name: "X Prophet (Restraint)", preset: "Psychic: 1d8 || DC Wis: 18 || Restrained: 1"},
+				{name: "X Sentry Spear", preset: "To-Hit: 1d20+7 || Physical: 1d2+5 || Lightning: 1d6", minCrit: "18"},
+				{name: "X Green-Flame Blade", preset: "Fire: 1d8 || Fire (T2): 1d8+3"},
+				{name: "X Fire Bolt", preset: "To-Hit: 1d20+6 || Fire: 3d5"},
+				{name: "X Chromatic Orb", preset: "To-Hit: 1d20+6 || Fire: 1d8+5"},
+				{name: "X Hellish Rebuke", preset: "DC Dex: 18 || Fire: 1d10"},
+				{name: "X Burning Hands", preset: "DC Dex: 18 || Fire: 1d6+4"},
+				{name: "X Arms of Hadar", preset: "DC Str: 18 || Necrotic: 1d6"},
+				{name: "X Absorb Elements", preset: "Fire: 1d3"},
+				{name: "X Dragon's Breath", preset: "DC Dex: 18 || Fire: 1d6+4"},
+				{name: "X Heat Metal", preset: "Fire: 1d8 || DC Con: 18 || Drop or Debuff: 1"},
+				{name: "X Flaming Sphere", preset: "DC Dex: 18 || Fire: 1d6"},
+				{name: "X Pyrotechnics", preset: "DC Con: 18 || Blind: 1"},
+				{name: "X Ashardalon's Stride", preset: "Fire: 1d3"},
+				{name: "X Elemental Weapon", preset: "Fire: 1d2"}
 			]
 		}, {
 			name: "Quasit",
@@ -29,7 +61,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			name: "Dretch",
 			actions: [
 				{name: "Bite", preset: "To-Hit: 1d20+2 || Piercing: 1d6"},
-				{name: "Claws", preset: "To-Hit: 1d20+2 || Slashing: 2d4"},
+				{name: "Claw", preset: "To-Hit: 1d20+2 || Slashing: 2d4"},
+				{name: "Bite & Claw", preset: "To-Hit: 1d20+2 || Piercing: 1d6 || Slashing: 2d4"},
 				{name: "Fetid Cloud", preset: "DC Con: 11 || Poisoned: 1"}
 			]
 		}
@@ -118,7 +151,15 @@ function roll() {
 	renderActionLog();
 }
 
-// Hadles clearing
+// Handles free rolls (lower left feature)
+function freeroll() {
+	let input = document.getElementById("freeinput").value;
+	let array = input.split("+");
+	let output = evaluateRandoms(array);
+	document.getElementById("freerollOutput").innerHTML = output;
+}
+
+// Handles clearing
 function clearActionLog() {
 	localStorage.setItem("actionLog", JSON.stringify([]));
 	renderActionLog();
@@ -253,7 +294,7 @@ function renderActionLog() {
 	});
 
 	// Adds total row at the bottom
-	if (actionLog.length > 1) {
+	if (actionLog.length > 2) {
 		totalRow = document.createElement("tr");
 		totalRow.addEventListener("click", function () {removeRow(index);});
 		uniqueDamageTypes.forEach(function(uniqueDamageType) {

@@ -64,6 +64,15 @@ button {
 	margin: 10px 13px;
 }
 
+.freerollItem {
+	background-color: #26282a;
+	color: #fff;
+	width: 83%;
+	border: 1px solid #972e2e;
+	padding: 10px 26px;
+	margin: 10px 13px;
+}
+
 article {
 	float: left;
 	padding: 20px;
