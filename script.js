@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		{
 			name: "Casper",
 			actions: [
-				{name: "Prophet (A)", preset: "To-Hit: 1d20+15 || Physical: 1d8+10 || Psychic: 3d8", minCrit: "18"},
-				{name: "Prophet (BA)", preset: "To-Hit: 1d20+15 || Physical: 1d2+10 || Psychic: 3d8", minCrit: "18"},
+				{name: "Prophet (A)", preset: "To-Hit: 1d20+15 || Physical: 1d8+10 || Psychic: 3d8 || Necrotic: 4d4", minCrit: "18"},
+				{name: "Prophet (BA)", preset: "To-Hit: 1d20+15 || Physical: 1d2+10 || Psychic: 3d8 || Necrotic: 4d4", minCrit: "18"},
 				{name: "Prophet (Repel)", preset: "Psychic: 1d8 || DC Wis: 20 || Prone: 1"},
 				{name: "Prophet (Restraint)", preset: "Psychic: 2d8 || Restrained: 1"},
 				{name: "Prophet (Brain Blast)", preset: "Psychic: 3d8"},
@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		}, {
 			name: "Casper 0.5",
 			actions: [
-				{name: "X Prophet (A)", preset: "To-Hit: 1d20+8 || Physical: 1d4+5 || Psychic: 1d12", minCrit: "18"},
-				{name: "X Prophet (BA)", preset: "To-Hit: 1d20+8 || Physical: 1d1+5 || Psychic: 1d12", minCrit: "18"},
+				{name: "X Prophet (A)", preset: "To-Hit: 1d20+8 || Physical: 1d4+5 || Psychic: 1d12 || Necrotic: 2d4", minCrit: "18"},
+				{name: "X Prophet (BA)", preset: "To-Hit: 1d20+8 || Physical: 1d1+5 || Psychic: 1d12 || Necrotic: 2d4", minCrit: "18"},
 				{name: "X Prophet (Repel)", preset: "Psychic: 1d4 || DC Wis: 10 || Prone: 1"},
 				{name: "X Prophet (Restraint)", preset: "Psychic: 1d8 || Restrained: 1"},
 				{name: "X Green-Flame Blade", preset: "Fire: 1d8 || Fire (T2): 1d8+3"},
